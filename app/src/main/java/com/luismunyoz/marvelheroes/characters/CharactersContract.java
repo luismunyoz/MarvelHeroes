@@ -18,6 +18,8 @@ public interface CharactersContract {
         void showCharacters(List<Character> characters);
 
         void showEmptyList();
+
+        void showErrorLoading();
     }
 
     interface Presenter extends BaseContract.BasePresenter {

@@ -12,19 +12,23 @@ import java.util.List;
 public class CharactersPresenter implements CharactersContract.Presenter, CharactersDataSource.GetCharactersCallback {
 
     private CharactersDataSource dataSource;
+    private CharactersContract.View view;
 
-    public CharactersPresenter(CharactersDataSource dataSource) {
+    public CharactersPresenter(CharactersDataSource dataSource, CharactersContract.View view) {
         this.dataSource = dataSource;
+        this.view = view;
+        this.view.setPresenter(this);
     }
 
     @Override
     public void start() {
-        dataSource.getCharacters(this);
+        loadCharacters();
     }
 
     @Override
     public void loadCharacters() {
-
+        view.showLoading(true);
+        dataSource.getCharacters(this);
     }
 
     @Override
@@ -34,11 +38,17 @@ public class CharactersPresenter implements CharactersContract.Presenter, Charac
 
     @Override
     public void onCharactersLoaded(List<Character> characters) {
-
+        view.showLoading(false);
+        if(characters.size() > 0) {
+            view.showCharacters(characters);
+        } else {
+            view.showEmptyList();
+        }
     }
 
     @Override
     public void onCharactersLoadError() {
-
+        view.showLoading(false);
+        view.showErrorLoading();
     }
 }
