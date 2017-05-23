@@ -33,8 +33,8 @@ public class CharactersPresenter implements CharactersContract.Presenter, Charac
     }
 
     @Override
-    public void openCharacterDetails(Character character) {
-
+    public void onCharacterClicked(Character character) {
+        view.openCharacterDetails(character);
     }
 
     @Override

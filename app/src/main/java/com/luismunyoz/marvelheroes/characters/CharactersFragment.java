@@ -1,16 +1,17 @@
 package com.luismunyoz.marvelheroes.characters;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.luismunyoz.marvelheroes.R;
+import com.luismunyoz.marvelheroes.characterdetail.CharacterDetailActivity;
 import com.luismunyoz.marvelheroes.data.Character;
 import com.luismunyoz.marvelheroes.ui.EndlessRecyclerViewScrollListener;
 
@@ -19,6 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by luis on 22/05/17.
@@ -29,6 +31,7 @@ public class CharactersFragment extends Fragment implements CharactersContract.V
     @BindView(R.id.characters_list)
     RecyclerView list;
 
+    private Unbinder unbinder;
     private CharactersContract.Presenter presenter;
     private List<Character> characters;
     private CharactersAdapter adapter;
@@ -52,7 +55,7 @@ public class CharactersFragment extends Fragment implements CharactersContract.V
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_characters, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         adapter = new CharactersAdapter(characters, R.layout.layout_character_item, this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false);
@@ -95,6 +98,13 @@ public class CharactersFragment extends Fragment implements CharactersContract.V
     }
 
     @Override
+    public void openCharacterDetails(Character character) {
+        Intent i = new Intent(getActivity(), CharacterDetailActivity.class);
+        i.putExtra(CharacterDetailActivity.ARG_CHARACTERID, character.getId());
+        startActivity(i);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         presenter.start();
@@ -102,6 +112,12 @@ public class CharactersFragment extends Fragment implements CharactersContract.V
 
     @Override
     public void onClickCharacter(Character character) {
-        presenter.openCharacterDetails(character);
+        presenter.onCharacterClicked(character);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

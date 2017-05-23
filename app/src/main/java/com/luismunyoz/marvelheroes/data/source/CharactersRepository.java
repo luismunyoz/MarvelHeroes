@@ -57,4 +57,36 @@ public class CharactersRepository {
             }
         });
     }
+
+    public void loadCharacter(Long characterId, final CharactersDataSource.GetCharacterCallback callback){
+        if(callback == null){
+            return;
+        }
+        if(characterList != null){
+            for(Character character : characterList){
+                if(character.getId().equals(characterId)){
+                    callback.onCharacterLoaded(character);
+                    return;
+                }
+            }
+        }
+        remoteDataSource.getCharacter(characterId, new CharactersDataSource.GetCharacterCallback() {
+            @Override
+            public void onCharacterLoaded(Character character) {
+                if(characterList != null && !characterList.contains(character)){
+                    characterList.add(character);
+                }
+                if(callback != null){
+                    callback.onCharacterLoaded(character);
+                }
+            }
+
+            @Override
+            public void onCharacterLoadError() {
+                if(callback != null){
+                    callback.onCharacterLoadError();
+                }
+            }
+        });
+    }
 }

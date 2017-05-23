@@ -2,6 +2,8 @@ package com.luismunyoz.marvelheroes.data.source.remote;
 
 import com.luismunyoz.marvelheroes.data.Character;
 import com.luismunyoz.marvelheroes.data.source.CharactersDataSource;
+import com.luismunyoz.marvelheroes.data.source.remote.interactors.CharacterInteractor;
+import com.luismunyoz.marvelheroes.data.source.remote.interactors.CharacterInteractorImpl;
 import com.luismunyoz.marvelheroes.data.source.remote.interactors.CharactersInteractor;
 import com.luismunyoz.marvelheroes.data.source.remote.interactors.CharactersInteractorImpl;
 
@@ -12,6 +14,7 @@ import java.util.List;
  */
 
 public class CharactersRemoteDataSource implements CharactersDataSource {
+
     @Override
     public void getCharacters(Integer limit, Integer offset, final GetCharactersCallback callback) {
         (new CharactersInteractorImpl()).execute(limit, offset, new CharactersInteractor.CharactersInteractorCallback() {
@@ -26,6 +29,25 @@ public class CharactersRemoteDataSource implements CharactersDataSource {
             public void onCharactersDownloadError(Integer status, String error) {
                 if(callback != null){
                     callback.onCharactersLoadError();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getCharacter(Long characterId, final GetCharacterCallback callback) {
+        (new CharacterInteractorImpl()).execute(characterId.toString(), new CharacterInteractor.CharacterInteractorCallback() {
+            @Override
+            public void onCharacterDownloaded(Character character) {
+                if(callback != null){
+                    callback.onCharacterLoaded(character);
+                }
+            }
+
+            @Override
+            public void onCharacterDownloadError(Integer status, String error) {
+                if(callback != null){
+                    callback.onCharacterLoadError();
                 }
             }
         });

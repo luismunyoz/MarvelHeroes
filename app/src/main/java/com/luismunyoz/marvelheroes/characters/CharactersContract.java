@@ -20,13 +20,15 @@ public interface CharactersContract {
         void showEmptyList();
 
         void showErrorLoading();
+
+        void openCharacterDetails(Character character);
     }
 
     interface Presenter extends BaseContract.BasePresenter {
 
         void loadCharacters();
 
-        void openCharacterDetails(Character character);
+        void onCharacterClicked(Character character);
 
         void onLoadMore();
     }

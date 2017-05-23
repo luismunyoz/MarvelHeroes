@@ -12,9 +12,15 @@ public interface CharactersDataSource {
 
     void getCharacters(Integer limit, Integer offset, GetCharactersCallback callback);
 
+    void getCharacter(Long characterId, GetCharacterCallback callback);
+
     interface GetCharactersCallback {
         void onCharactersLoaded(List<Character> characters);
-
         void onCharactersLoadError();
+    }
+
+    interface GetCharacterCallback {
+        void onCharacterLoaded(Character character);
+        void onCharacterLoadError();
     }
 }

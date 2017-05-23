@@ -10,4 +10,5 @@
 
     <dimen name="list_character_name_size">18sp</dimen>
     <dimen name="list_character_item_size">150dp</dimen>
+    <dimen name="title_description_size">15sp</dimen>
 </resources>
