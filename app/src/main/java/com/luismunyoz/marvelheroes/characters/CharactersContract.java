@@ -27,5 +27,7 @@ public interface CharactersContract {
         void loadCharacters();
 
         void openCharacterDetails(Character character);
+
+        void onLoadMore();
     }
 }

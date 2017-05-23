@@ -14,5 +14,5 @@ public interface CharactersInteractor {
         void onCharactersDownloadError(Integer status, String error);
     }
 
-    public void execute(CharactersInteractorCallback callback);
+    public void execute(Integer limit, Integer offset, CharactersInteractorCallback callback);
 }

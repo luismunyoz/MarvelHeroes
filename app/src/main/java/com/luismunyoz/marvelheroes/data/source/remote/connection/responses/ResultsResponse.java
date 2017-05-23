@@ -10,6 +10,18 @@ import java.util.List;
 
 public class ResultsResponse<T> {
 
+    @SerializedName("offset")
+    private Integer offset;
+
+    @SerializedName("limit")
+    private Integer limit;
+
+    @SerializedName("total")
+    private Integer total;
+
+    @SerializedName("count")
+    private Integer count;
+
     @SerializedName("results")
     private List<T> results;
 

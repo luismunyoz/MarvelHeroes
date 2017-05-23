@@ -17,7 +17,7 @@ import retrofit2.Response;
 public class ComicsInteractorImpl implements ComicsInteractor {
     @Override
     public void execute(String characterID, final ComicsInteractorCallback callback) {
-        MarvelHeroesApplication.getService().getComicsByCharacter(characterID).enqueue(new Callback<BaseResponse<Comic>>() {
+        MarvelHeroesApplication.getService().getComicsByCharacter(characterID, 20, 0).enqueue(new Callback<BaseResponse<Comic>>() {
             @Override
             public void onResponse(Call<BaseResponse<Comic>> call, Response<BaseResponse<Comic>> response) {
                 if(callback != null){

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CharactersDataSource {
 
-    void getCharacters(GetCharactersCallback callback);
+    void getCharacters(Integer limit, Integer offset, GetCharactersCallback callback);
 
     interface GetCharactersCallback {
         void onCharactersLoaded(List<Character> characters);

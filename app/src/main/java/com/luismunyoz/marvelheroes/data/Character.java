@@ -35,4 +35,11 @@ public class Character {
     public Picture getThumbnail() {
         return thumbnail;
     }
+
+    public String getPictureUrl(){
+        if(thumbnail != null){
+            return String.format("%1$s.%2$s", getThumbnail().getPath(), getThumbnail().getExtension());
+        }
+        return "";
+    }
 }

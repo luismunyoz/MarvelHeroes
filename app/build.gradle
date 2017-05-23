@@ -17,6 +17,7 @@ android {
             buildConfigField "String", "CHARACTER_ID", "\"1009362\""
             buildConfigField "String", "PUBLIC_KEY", "\"6a7ed890b4b941a925202a5630d5b162\""
             buildConfigField "String", "PRIVATE_KEY", "\"0f1d0fdf46a0bf32f962b0b9997233c0395cdf8e\""
+            buildConfigField "Integer", "DEFAULT_PAGE_SIZE", "20"
 
             minifyEnabled false
             shrinkResources false
@@ -27,6 +28,7 @@ android {
             buildConfigField "String", "CHARACTER_ID", "\"1009362\""
             buildConfigField "String", "PUBLIC_KEY", "\"6a7ed890b4b941a925202a5630d5b162\""
             buildConfigField "String", "PRIVATE_KEY", "\"0f1d0fdf46a0bf32f962b0b9997233c0395cdf8e\""
+            buildConfigField "Integer", "DEFAULT_PAGE_SIZE", "20"
 
             minifyEnabled false
             shrinkResources false

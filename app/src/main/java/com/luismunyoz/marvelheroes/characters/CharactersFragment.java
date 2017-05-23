@@ -3,6 +3,7 @@ package com.luismunyoz.marvelheroes.characters;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.luismunyoz.marvelheroes.R;
 import com.luismunyoz.marvelheroes.data.Character;
+import com.luismunyoz.marvelheroes.ui.EndlessRecyclerViewScrollListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +55,15 @@ public class CharactersFragment extends Fragment implements CharactersContract.V
         ButterKnife.bind(this, view);
 
         adapter = new CharactersAdapter(characters, R.layout.layout_character_item, this);
-        list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false);
+        list.setLayoutManager(gridLayoutManager);
         list.setAdapter(adapter);
+        list.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                presenter.onLoadMore();
+            }
+        });
 
         return view;
     }

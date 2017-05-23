@@ -18,8 +18,8 @@ import retrofit2.Response;
 public class CharactersInteractorImpl implements CharactersInteractor {
 
     @Override
-    public void execute(final CharactersInteractorCallback callback) {
-        MarvelHeroesApplication.getService().getCharacters().enqueue(new Callback<BaseResponse<Character>>() {
+    public void execute(Integer limit, Integer offset, final CharactersInteractorCallback callback) {
+        MarvelHeroesApplication.getService().getCharacters(limit, offset).enqueue(new Callback<BaseResponse<Character>>() {
             @Override
             public void onResponse(Call<BaseResponse<Character>> call, Response<BaseResponse<Character>> response) {
                 if(callback != null){

@@ -13,8 +13,8 @@ import java.util.List;
 
 public class CharactersRemoteDataSource implements CharactersDataSource {
     @Override
-    public void getCharacters(final GetCharactersCallback callback) {
-        (new CharactersInteractorImpl()).execute(new CharactersInteractor.CharactersInteractorCallback() {
+    public void getCharacters(Integer limit, Integer offset, final GetCharactersCallback callback) {
+        (new CharactersInteractorImpl()).execute(limit, offset, new CharactersInteractor.CharactersInteractorCallback() {
             @Override
             public void onCharactersDownloaded(List<Character> characters) {
                 if(callback != null){

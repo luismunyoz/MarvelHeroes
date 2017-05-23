@@ -2,6 +2,7 @@ package com.luismunyoz.marvelheroes.characters;
 
 import com.luismunyoz.marvelheroes.data.Character;
 import com.luismunyoz.marvelheroes.data.source.CharactersDataSource;
+import com.luismunyoz.marvelheroes.data.source.CharactersRepository;
 
 import java.util.List;
 
@@ -11,11 +12,11 @@ import java.util.List;
 
 public class CharactersPresenter implements CharactersContract.Presenter, CharactersDataSource.GetCharactersCallback {
 
-    private CharactersDataSource dataSource;
+    private CharactersRepository repository;
     private CharactersContract.View view;
 
-    public CharactersPresenter(CharactersDataSource dataSource, CharactersContract.View view) {
-        this.dataSource = dataSource;
+    public CharactersPresenter(CharactersRepository charactersRepository, CharactersContract.View view) {
+        this.repository = charactersRepository;
         this.view = view;
         this.view.setPresenter(this);
     }
@@ -28,7 +29,7 @@ public class CharactersPresenter implements CharactersContract.Presenter, Charac
     @Override
     public void loadCharacters() {
         view.showLoading(true);
-        dataSource.getCharacters(this);
+        repository.loadCharacters(this);
     }
 
     @Override
@@ -50,5 +51,10 @@ public class CharactersPresenter implements CharactersContract.Presenter, Charac
     public void onCharactersLoadError() {
         view.showLoading(false);
         view.showErrorLoading();
+    }
+
+    @Override
+    public void onLoadMore() {
+        repository.loadCharacters(this);
     }
 }

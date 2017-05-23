@@ -12,9 +12,9 @@
             type="com.luismunyoz.marvelheroes.characters.CharactersAdapter.Listener" />
     </data>
 
-    <FrameLayout
+    <com.luismunyoz.marvelheroes.ui.SquaredFrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/list_character_item_size"
+        android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
@@ -23,7 +23,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:imageUrl="@{item.thumbnail.path}"
+            app:imageUrl="@{item.getPictureUrl()}"
             android:scaleType="centerCrop"/>
 
         <FrameLayout
@@ -40,5 +40,5 @@
                 android:textSize="@dimen/list_character_name_size"
                 android:textColor="@android:color/white"/>
         </FrameLayout>
-    </FrameLayout>
+    </com.luismunyoz.marvelheroes.ui.SquaredFrameLayout>
 </layout>
