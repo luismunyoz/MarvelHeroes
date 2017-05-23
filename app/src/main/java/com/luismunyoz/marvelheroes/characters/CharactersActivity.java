@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.luismunyoz.marvelheroes.R;
+import com.luismunyoz.marvelheroes.data.source.remote.CharactersRemoteDataSource;
 import com.luismunyoz.marvelheroes.util.ActivityUtils;
 
 public class CharactersActivity extends AppCompatActivity {
@@ -20,5 +21,7 @@ public class CharactersActivity extends AppCompatActivity {
             charactersFragment = CharactersFragment.newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), charactersFragment, R.id.characters_container);
         }
+
+        presenter = new CharactersPresenter(new CharactersRemoteDataSource(), charactersFragment);
     }
 }
