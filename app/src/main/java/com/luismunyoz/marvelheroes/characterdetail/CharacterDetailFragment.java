@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.luismunyoz.marvelheroes.R;
 import com.luismunyoz.marvelheroes.data.Character;
@@ -35,6 +36,8 @@ public class CharacterDetailFragment extends Fragment implements CharacterDetail
     Toolbar toolbar;
     @BindView(R.id.character_comic_list)
     RecyclerView comicList;
+    @BindView(R.id.character_comic_loading)
+    ProgressBar comicLoading;
 
     private Unbinder unbinder;
     private CharacterDetailContract.Presenter presenter;
@@ -62,6 +65,7 @@ public class CharacterDetailFragment extends Fragment implements CharacterDetail
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         comicsAdapter = new CharacterComicsAdapter(R.layout.layout_comic_item, this);
+        comicList.setNestedScrollingEnabled(false);
         comicList.setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.VERTICAL, false));
         comicList.setAdapter(comicsAdapter);
 
@@ -102,7 +106,9 @@ public class CharacterDetailFragment extends Fragment implements CharacterDetail
 
     @Override
     public void showComicLoading(boolean loading) {
-
+        if(comicLoading != null) {
+            comicLoading.setVisibility(loading ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override

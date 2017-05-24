@@ -12,7 +12,7 @@
             type="com.luismunyoz.marvelheroes.characterdetail.CharacterComicsAdapter.Listener" />
     </data>
 
-    <com.luismunyoz.marvelheroes.ui.SquaredFrameLayout
+    <com.luismunyoz.marvelheroes.ui.SheetFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
@@ -40,5 +40,5 @@
                 android:textSize="@dimen/list_comic_title_size"
                 android:textColor="@android:color/white"/>
         </FrameLayout>
-    </com.luismunyoz.marvelheroes.ui.SquaredFrameLayout>
+    </com.luismunyoz.marvelheroes.ui.SheetFrameLayout>
 </layout>

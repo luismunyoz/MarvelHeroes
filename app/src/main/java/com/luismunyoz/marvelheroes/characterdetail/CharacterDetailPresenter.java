@@ -63,9 +63,11 @@ public class CharacterDetailPresenter implements CharacterDetailContract.Present
 
     @Override
     public void loadCharactersComics() {
+        view.showComicLoading(true);
         repository.loadCharacterComics(characterId, new CharactersDataSource.GetCharacterComicsCallback() {
             @Override
             public void onCharacterComicsLoaded(List<Comic> comics) {
+                view.showComicLoading(false);
                 if(comics == null || comics.isEmpty()){
                     view.showComicEmptyList();
                 } else {
@@ -75,7 +77,7 @@ public class CharacterDetailPresenter implements CharacterDetailContract.Present
 
             @Override
             public void onCharacterComicsLoadError() {
-
+                view.showComicLoading(false);
             }
         });
     }
