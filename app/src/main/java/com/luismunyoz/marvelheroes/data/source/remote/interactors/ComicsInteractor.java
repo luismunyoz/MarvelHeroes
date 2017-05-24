@@ -16,5 +16,5 @@ public interface ComicsInteractor {
         void onComicsDownloadError(Integer status, String error);
     }
 
-    public void execute(String characterID, ComicsInteractorCallback callback);
+    public void execute(String characterID, Integer limit, Integer offset, ComicsInteractorCallback callback);
 }

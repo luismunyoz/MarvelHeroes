@@ -1,9 +1,13 @@
 package com.luismunyoz.marvelheroes.data.source;
 
+import android.util.SparseArray;
+
 import com.luismunyoz.marvelheroes.BuildConfig;
 import com.luismunyoz.marvelheroes.data.Character;
+import com.luismunyoz.marvelheroes.data.Comic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,6 +20,7 @@ public class CharactersRepository {
 
     private static CharactersRepository INSTANCE;
     private List<Character> characterList;
+    private HashMap<Long, List<Comic>> comicsByCharacterId;
 
     private Integer currentOffset;
 
@@ -25,6 +30,7 @@ public class CharactersRepository {
         this.remoteDataSource = remoteDataSource;
         currentOffset = 0;
         characterList = new ArrayList<>();
+        comicsByCharacterId = new HashMap<>();
     }
 
     public static CharactersRepository getInstance(CharactersDataSource remoteDataSource){
@@ -85,6 +91,32 @@ public class CharactersRepository {
             public void onCharacterLoadError() {
                 if(callback != null){
                     callback.onCharacterLoadError();
+                }
+            }
+        });
+    }
+
+    public void loadCharacterComics(final Long characterId, final CharactersDataSource.GetCharacterComicsCallback callback){
+        if(callback == null){
+            return;
+        }
+        if(comicsByCharacterId != null && comicsByCharacterId.containsKey(characterId)){
+            callback.onCharacterComicsLoaded(comicsByCharacterId.get(characterId));
+            return;
+        }
+        remoteDataSource.getCharacterComics(characterId, 100, 0, new CharactersDataSource.GetCharacterComicsCallback() {
+            @Override
+            public void onCharacterComicsLoaded(List<Comic> comics) {
+                comicsByCharacterId.put(characterId, comics);
+                if(callback != null){
+                    callback.onCharacterComicsLoaded(comics);
+                }
+            }
+
+            @Override
+            public void onCharacterComicsLoadError() {
+                if(callback != null){
+                    callback.onCharacterComicsLoadError();
                 }
             }
         });

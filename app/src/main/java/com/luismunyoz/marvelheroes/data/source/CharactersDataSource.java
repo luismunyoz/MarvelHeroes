@@ -1,6 +1,7 @@
 package com.luismunyoz.marvelheroes.data.source;
 
 import com.luismunyoz.marvelheroes.data.Character;
+import com.luismunyoz.marvelheroes.data.Comic;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface CharactersDataSource {
 
     void getCharacter(Long characterId, GetCharacterCallback callback);
 
+    void getCharacterComics(Long characterId, Integer limit, Integer offset, GetCharacterComicsCallback callback);
+
     interface GetCharactersCallback {
         void onCharactersLoaded(List<Character> characters);
         void onCharactersLoadError();
@@ -22,5 +25,10 @@ public interface CharactersDataSource {
     interface GetCharacterCallback {
         void onCharacterLoaded(Character character);
         void onCharacterLoadError();
+    }
+
+    interface GetCharacterComicsCallback {
+        void onCharacterComicsLoaded(List<Comic> comics);
+        void onCharacterComicsLoadError();
     }
 }

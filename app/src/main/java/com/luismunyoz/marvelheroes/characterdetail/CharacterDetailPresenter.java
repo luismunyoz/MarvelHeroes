@@ -1,8 +1,11 @@
 package com.luismunyoz.marvelheroes.characterdetail;
 
 import com.luismunyoz.marvelheroes.data.Character;
+import com.luismunyoz.marvelheroes.data.Comic;
 import com.luismunyoz.marvelheroes.data.source.CharactersDataSource;
 import com.luismunyoz.marvelheroes.data.source.CharactersRepository;
+
+import java.util.List;
 
 /**
  * Created by Luis on 23/05/2017.
@@ -26,6 +29,7 @@ public class CharacterDetailPresenter implements CharacterDetailContract.Present
     public void start() {
         if(character != null){
             view.showCharacter(character);
+            loadCharactersComics();
         } else if (characterId != null){
             view.showLoading(true);
             repository.loadCharacter(characterId, new CharactersDataSource.GetCharacterCallback() {
@@ -34,6 +38,7 @@ public class CharacterDetailPresenter implements CharacterDetailContract.Present
                     view.showLoading(false);
                     CharacterDetailPresenter.this.character = character;
                     view.showCharacter(character);
+                    loadCharactersComics();
                 }
 
                 @Override
@@ -53,5 +58,25 @@ public class CharacterDetailPresenter implements CharacterDetailContract.Present
     @Override
     public void setCharacter(Character character) {
         this.character = character;
+        this.characterId = character.getId();
+    }
+
+    @Override
+    public void loadCharactersComics() {
+        repository.loadCharacterComics(characterId, new CharactersDataSource.GetCharacterComicsCallback() {
+            @Override
+            public void onCharacterComicsLoaded(List<Comic> comics) {
+                if(comics == null || comics.isEmpty()){
+                    view.showComicEmptyList();
+                } else {
+                    view.showComics(comics);
+                }
+            }
+
+            @Override
+            public void onCharacterComicsLoadError() {
+
+            }
+        });
     }
 }
